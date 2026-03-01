@@ -39,6 +39,29 @@
       padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     }
 
+    .stars-mobile {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      background: 
+        radial-gradient(circle at 20% 30%, #fff 1px, transparent 1px),
+        radial-gradient(circle at 40% 70%, rgba(255,255,255,0.8) 1.5px, transparent 1.5px),
+        radial-gradient(circle at 60% 20%, #ff4da6 1px, transparent 1px),
+        radial-gradient(circle at 80% 80%, rgba(255,255,255,0.6) 0.8px, transparent 0.8px),
+        radial-gradient(circle at 10% 90%, #fff 1.2px, transparent 1.2px);
+      background-size: 150px 100px, 200px 150px, 180px 120px, 220px 160px, 160px 110px;
+      animation: starsMobileFloat 25s ease-in-out infinite;
+    }
+
+    @keyframes starsMobileFloat {
+      0%, 100% { opacity: 0.6; transform: scale(1) translateY(0); }
+      50% { opacity: 1; transform: scale(1.05) translateY(-20px); }
+    }
+
     .stars {
       position: fixed;
       top: 0;
@@ -53,19 +76,18 @@
       position: absolute;
       background: white;
       border-radius: 50%;
-      box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
       opacity: 0;
-      animation: starTwinkle 3s infinite ease-in-out;
+      animation: starTwinkle 4s infinite ease-in-out;
       pointer-events: none;
       z-index: 1;
     }
 
     @keyframes starTwinkle {
-      0%, 100% { opacity: 0; transform: scale(0); }
-      10% { opacity: 0.8; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.2); }
-      90% { opacity: 0.8; transform: scale(1); }
-      100% { opacity: 0; transform: scale(0); }
+      0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+      10% { opacity: 0.7; transform: scale(1) rotate(5deg); }
+      50% { opacity: 1; transform: scale(1.3) rotate(-5deg); }
+      90% { opacity: 0.7; transform: scale(1) rotate(5deg); }
     }
 
     .glow {
@@ -121,14 +143,14 @@
     }
 
     h1 {
-      font-size: 40px;
+      font-size: clamp(22px, 6vw, 40px);
       margin-bottom: 20px;
       letter-spacing: 1px;
       word-break: break-word;
     }
 
     p {
-      font-size: 18px;
+      font-size: clamp(14px, 3.5vw, 18px);
       line-height: 1.6;
       margin-bottom: 20px;
       word-break: break-word;
@@ -143,14 +165,14 @@
     }
 
     .timer-label {
-      font-size: 14px;
+      font-size: clamp(12px, 3vw, 14px);
       opacity: 0.7;
       margin-bottom: 5px;
       letter-spacing: 1px;
     }
 
     .timer {
-      font-size: 28px;
+      font-size: clamp(18px, 5vw, 28px);
       font-weight: 300;
       line-height: 1.4;
       letter-spacing: 1px;
@@ -196,6 +218,7 @@
       max-width: 614px;
       margin: 0 auto;
       text-align: center;
+      padding: 20px 0;
     }
 
     .yandex-fallback a {
@@ -203,19 +226,19 @@
       background: rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(10px);
       color: white;
-      padding: 16px 32px;
+      padding: clamp(12px, 4vw, 16px) clamp(24px, 6vw, 32px);
       border-radius: 50px;
       text-decoration: none;
       font-weight: 500;
-      font-size: 18px;
+      font-size: clamp(14px, 4vw, 18px);
       letter-spacing: 0.5px;
       border: 1px solid rgba(255, 255, 255, 0.3);
-      transition: background 0.3s, transform 0.2s;
-      margin: 20px 0;
+      transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
 
-    .yandex-fallback a:hover {
+    .yandex-fallback a:hover,
+    .yandex-fallback a:active {
       background: rgba(255, 255, 255, 0.35);
       transform: scale(1.02);
     }
@@ -237,24 +260,27 @@
     .media-switch {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: clamp(10px, 4vw, 20px);
       margin-top: 25px;
     }
 
     .switch-dot {
-      width: 30px;
-      height: 30px;
+      width: clamp(28px, 8vw, 32px);
+      height: clamp(28px, 8vw, 32px);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       position: relative;
+      border: none;
+      background: none;
+      padding: 0;
     }
 
     .switch-dot::before {
       content: '';
-      width: 14px;
-      height: 14px;
+      width: clamp(12px, 3.5vw, 14px);
+      height: clamp(12px, 3.5vw, 14px);
       border-radius: 50%;
       background: white;
       box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
@@ -273,87 +299,17 @@
       bottom: 100%;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.9);
       color: white;
-      padding: 6px 12px;
+      padding: 8px 12px;
       border-radius: 20px;
-      font-size: 12px;
+      font-size: clamp(11px, 3vw, 12px);
       white-space: nowrap;
-      margin-bottom: 8px;
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 10px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       pointer-events: none;
       z-index: 10;
-    }
-
-    @media (max-width: 600px) {
-      .yandex-container {
-        display: none;
-      }
-      .yandex-fallback {
-        display: block;
-      }
-      .stars {
-        display: none;
-      }
-    }
-
-    @media (min-width: 601px) {
-      .yandex-fallback {
-        display: none;
-      }
-    }
-
-    @media (max-width: 700px) {
-      .card {
-        padding: 40px 30px;
-        backdrop-filter: none;
-        background: rgba(20, 20, 30, 0.8);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .main {
-        padding: 10px;
-      }
-      .card {
-        padding: 30px 16px;
-        border-radius: 24px;
-      }
-      h1 {
-        font-size: 26px;
-        margin-bottom: 16px;
-      }
-      p {
-        font-size: 15px;
-        margin-bottom: 20px;
-        line-height: 1.5;
-      }
-      .timer {
-        font-size: 20px;
-      }
-      .switch-dot {
-        width: 32px;
-        height: 32px;
-      }
-      .switch-dot:hover::after {
-        display: none;
-      }
-    }
-
-    @media (max-width: 400px) {
-      .card {
-        padding: 20px 12px;
-      }
-      h1 {
-        font-size: 22px;
-      }
-      p {
-        font-size: 14px;
-      }
-      .timer {
-        font-size: 18px;
-      }
     }
 
     .quote {
@@ -367,10 +323,46 @@
       text-align: left;
       background: transparent;
     }
+
+    @media (max-width: 600px) {
+      .yandex-container { display: none; }
+      .yandex-fallback { display: block; }
+      .stars { display: none; }
+      .stars-mobile { display: block; }
+    }
+
+    @media (min-width: 601px) {
+      .stars-mobile { display: none; }
+      .yandex-fallback { display: none; }
+      .yandex-container { display: block; }
+      .stars { display: block; }
+    }
+
+    @media (max-width: 700px) {
+      .card {
+        padding: clamp(20px, 8vw, 40px) clamp(16px, 6vw, 30px);
+        backdrop-filter: none;
+        background: rgba(20, 20, 30, 0.85);
+        border-radius: clamp(20px, 6vw, 24px);
+        margin: 10px;
+      }
+      .main { padding: clamp(10px, 4vw, 20px); }
+    }
+
+    @media (max-width: 480px) {
+      .switch-dot:hover::after { display: none; }
+      .media-switch { gap: 15px; }
+    }
+
+    @media (max-width: 400px) {
+      .card { padding: 20px 16px; }
+    }
   </style>
 </head>
 <body>
 
+<!-- Звёздное небо для всех устройств -->
+<div class="stars-mobile"></div>
 <div class="stars"></div>
 
 <div class="main">
@@ -410,7 +402,7 @@
           </iframe>
         </div>
         <div class="yandex-fallback">
-          <a href="#" id="yandex-music-link">Слушать в Яндекс.Музыке</a>
+          <a href="#" id="yandex-music-link">🎵 Слушать в Яндекс.Музыке</a>
         </div>
       </div>
 
@@ -427,8 +419,8 @@
       </div>
 
       <div class="media-switch">
-        <span class="switch-dot" data-media="yandex" data-tooltip="Яндекс.Музыка"></span>
-        <span class="switch-dot" data-media="youtube" data-tooltip="YouTube"></span>
+        <button class="switch-dot active" data-media="yandex" data-tooltip="Яндекс.Музыка" aria-label="Яндекс.Музыка"></button>
+        <button class="switch-dot" data-media="youtube" data-tooltip="YouTube" aria-label="YouTube"></button>
       </div>
     </div>
   </div>
@@ -438,37 +430,30 @@
 (function() {
   "use strict";
 
-  // ⭐ Оптимизированная генерация анимированных звёзд
-  function createAnimatedStars() {
+  function createStars() {
     const starsContainer = document.querySelector('.stars');
     const card = document.querySelector('.card');
     if (!starsContainer || !card || window.innerWidth <= 600) return;
 
     starsContainer.innerHTML = '';
-    const starCount = 35; // Больше звёзд для эффекта
+    const starCount = 40;
     const rect = card.getBoundingClientRect();
     
     for (let i = 0; i < starCount; i++) {
-      let attempts = 0;
-      let x, y;
-      
-      // Находим позицию вне карточки
+      let x, y, attempts = 0;
       do {
         x = Math.random() * 100;
         y = Math.random() * 100;
         attempts++;
-      } while (attempts < 200 && isInsideCard(x, y, rect));
-      
+      } while (attempts < 150 && isInsideCard(x, y, rect));
+
       const star = document.createElement('div');
       star.className = 'star';
-      star.style.left = x + '%';
-      star.style.top = y + '%';
-      star.style.width = star.style.height = (Math.random() * 3 + 1.5) + 'px';
-      
-      // Разная задержка и длительность для каждой звезды
-      star.style.animationDelay = Math.random() * 3 + 's';
-      star.style.animationDuration = (Math.random() * 2 + 2) + 's';
-      
+      star.style.left = `${x}%`;
+      star.style.top = `${y}%`;
+      star.style.width = star.style.height = `${Math.random() * 3 + 1.2}px`;
+      star.style.animationDelay = `${Math.random() * 4}s`;
+      star.style.animationDuration = `${Math.random() * 3 + 2.5}s`;
       starsContainer.appendChild(star);
     }
   }
@@ -479,7 +464,7 @@
     return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
   }
 
-  // Остальной код без изменений (оптимизирован)
+
   function plural(n, one, two, five) {
     n = Math.abs(n) % 100;
     const n1 = n % 10;
@@ -489,7 +474,7 @@
     return five;
   }
 
-  function dateDiff(start, end) {
+  function dateDiff(start, end = new Date()) {
     let years = end.getFullYear() - start.getFullYear();
     let months = end.getMonth() - start.getMonth();
     let days = end.getDate() - start.getDate();
@@ -511,79 +496,65 @@
 
   function updateTimer() {
     const startDate = new Date(2021, 1, 11);
-    const now = new Date();
-    const diff = dateDiff(startDate, now);
+    const diff = dateDiff(startDate);
     const parts = [];
-    if (diff.years > 0) parts.push(diff.years + ' ' + plural(diff.years, 'год', 'года', 'лет'));
-    if (diff.months > 0) parts.push(diff.months + ' ' + plural(diff.months, 'месяц', 'месяца', 'месяцев'));
-    if (diff.days > 0) parts.push(diff.days + ' ' + plural(diff.days, 'день', 'дня', 'дней'));
-    if (diff.hours > 0) parts.push(diff.hours + ' ' + plural(diff.hours, 'час', 'часа', 'часов'));
-    if (diff.minutes > 0) parts.push(diff.minutes + ' ' + plural(diff.minutes, 'минуту', 'минуты', 'минут'));
-    parts.push(diff.seconds + ' ' + plural(diff.seconds, 'секунду', 'секунды', 'секунд'));
-    const timer = document.getElementById('timer');
-    if (timer) timer.textContent = parts.join(' ');
+    if (diff.years) parts.push(`${diff.years} ${plural(diff.years, 'год', 'года', 'лет')}`);
+    if (diff.months) parts.push(`${diff.months} ${plural(diff.months, 'месяц', 'месяца', 'месяцев')}`);
+    if (diff.days) parts.push(`${diff.days} ${plural(diff.days, 'день', 'дня', 'дней')}`);
+    if (diff.hours) parts.push(`${diff.hours} ${plural(diff.hours, 'час', 'часа', 'часов')}`);
+    if (diff.minutes) parts.push(`${diff.minutes} ${plural(diff.minutes, 'минуту', 'минуты', 'минут')}`);
+    parts.push(`${diff.seconds} ${plural(diff.seconds, 'секунду', 'секунды', 'секунд')}`);
+    
+    document.getElementById('timer').textContent = parts.join(' ');
   }
 
-  // Секвенс появления контента
-  const titleEl = document.getElementById('mainTitle');
-  const timerBlock = document.getElementById('timer-block');
-  const paragraphs = document.querySelectorAll('[id^="p"]');
-  const mediaBlock = document.getElementById('media-block');
 
   function startSequence() {
-    setTimeout(() => titleEl.classList.add('visible'), 200);
-    setTimeout(() => {
-      timerBlock.classList.add('visible');
-      if (!window.timerInterval) {
-        updateTimer();
-        window.timerInterval = setInterval(updateTimer, 1000);
-      }
-    }, 1200);
-    setTimeout(() => paragraphs.forEach(p => p.classList.add('visible')), 2400);
-    setTimeout(() => {
-      mediaBlock.classList.add('visible');
-      activateMedia('yandex');
-    }, 3600);
+    const timings = [200, 1200, 2400, 3600];
+    const selectors = ['#mainTitle', '#timer-block', '[id^="p"]', '#media-block'];
+    
+    timings.forEach((delay, i) => {
+      setTimeout(() => {
+        document.querySelectorAll(selectors[i]).forEach(el => el.classList.add('visible'));
+        if (i === 1 && !window.timerInterval) {
+          updateTimer();
+          window.timerInterval = setInterval(updateTimer, 1000);
+        }
+        if (i === 3) activateMedia('yandex');
+      }, delay);
+    });
   }
-
-  // Переключатель медиа
-  const dots = document.querySelectorAll('.switch-dot');
-  const players = {
-    yandex: document.getElementById('player-yandex'),
-    youtube: document.getElementById('player-youtube')
-  };
 
   function activateMedia(key) {
-    dots.forEach(d => d.classList.remove('active'));
-    Object.values(players).forEach(p => p && p.classList.remove('active'));
-    const dot = [...dots].find(d => d.dataset.media === key);
-    if (dot) dot.classList.add('active');
-    if (players[key]) players[key].classList.add('active');
+    document.querySelectorAll('.media-player, .switch-dot').forEach(el => el.classList.remove('active'));
+    document.getElementById(`player-${key}`).classList.add('active');
+    document.querySelector(`[data-media="${key}"]`).classList.add('active');
   }
 
-  dots.forEach(dot => {
-    dot.addEventListener('click', function(e) {
-      e.stopPropagation();
-      activateMedia(dot.dataset.media);
+  function init() {
+    createStars();
+    startSequence();
+    
+    document.querySelectorAll('.switch-dot').forEach(dot => {
+      dot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        activateMedia(dot.dataset.media);
+      });
     });
-  });
 
-  const yandexLink = document.getElementById('yandex-music-link');
-  if (yandexLink) {
-    yandexLink.addEventListener('click', function(e) {
+    document.getElementById('yandex-music-link').addEventListener('click', (e) => {
       e.preventDefault();
       window.open('https://music.yandex.ru/album/25511786/track/106597497', '_blank');
     });
+
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(createStars, 250);
+    });
   }
 
-  // Инициализация
-  window.addEventListener('load', () => {
-    createAnimatedStars();
-    startSequence();
-  });
-
-  // Пересоздание звёзд при ресайзе
-  window.addEventListener('resize', createAnimatedStars);
+  window.addEventListener('load', init);
 })();
 </script>
 </body>
